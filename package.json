@@ -12,10 +12,16 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
+  "config": {
+    "nuxt": {
+      "port": "3333"
+    }
+  },
   "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
+    "apisauce": "^0.15.1",
     "nuxt": "^1.0.0",
-    "vuetify": "^0.17.3",
-    "@nuxtjs/axios": "^5.0.0"
+    "vuetify": "^0.17.3"
   },
   "devDependencies": {
     "cross-env": "^5.0.1",
