@@ -89,7 +89,7 @@
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
           { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' },
-          { icon: 'apps', title: 'Products', to: '/user'}
+          { icon: 'apps', title: 'Productos', to: '/products'}
         ],
         miniVariant: false,
         right: true,

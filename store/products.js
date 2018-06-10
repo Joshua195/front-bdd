@@ -42,67 +42,37 @@ export const actions = {
   },
   async fetchProducts({commit}) {
     commit('fetching')
-    setTimeout(() => {
-      commit('success', products)
-    }, 2000)
-    // const response = api.get(`products`)
-    // if (response.ok) {
-    //   commit('success', response.data)
-    // } else {
-    //   commit('error', error.problem)
-    // }
+    const response = await api.get(`products`)
+    if (response.ok) {
+      commit('success', response.data)
+    } else {
+      commit('error', response.problem)
+    }
+  },
+  async newProduct({ commit, dispatch }, payload) {
+    const response = await api.post(`products`, {product: {...payload}})
+    if (response.ok) {
+      dispatch('fetchProducts')
+    } else {
+      commit('error', response.problem)
+    }
+  },
+  async updateProduct({ commit, dispatch }, payload) {
+    const { name, price, description, id } = payload
+    const response = await api.patch(`products/${id}`, { name, price, description })
+    if (response.ok) {
+      dispatch('fetchProducts')
+    } else {
+      commit('error', response.problem)
+    }
+  },
+  async deleteProduct({ commit, dispatch }, payload) {
+    const { id } = payload
+    const response = await api.delete(`products/${id}`)
+    if (response.ok) {
+      dispatch('fetchProducts')
+    } else {
+      commit('error', response.problem)
+    }
   }
 }
-
-const products = [
-  {
-    name: 'Frozen Yogurt',
-    price: 23.56,
-    description: 'Frozen yogurt description'
-  },
-  {
-    name: 'Ice cream sandwich',
-    price: 123,
-    description: 'Ice screen sandwich description',
-  },
-  {
-    name: 'Eclair',
-    price: 262,
-    description: 'eclair description'
-  },
-  {
-    name: 'Cupcake',
-    price: 305,
-    description: 'cupcake description',
-  },
-  {
-    name: 'Gingerbread',
-    price: 356,
-    description: 'gingerbread description',
-  },
-  {
-    name: 'Jelly bean',
-    price: 375,
-    description: 'jelly bean description',
-  },
-  {
-    name: 'Lollipop',
-    price: 392,
-    description: 'lollipop description',
-  },
-  {
-    name: 'Honeycomb',
-    price: 408,
-    description: 'honeycomb description',
-  },
-  {
-    name: 'Donut',
-    price: 452,
-    description: 'donut description',
-  },
-  {
-    name: 'KitKat',
-    price: 518,
-    description: 'kit kat description'
-  }
-]
