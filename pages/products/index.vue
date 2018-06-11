@@ -92,7 +92,8 @@
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
-    data: () => ({
+    middleware: 'auth',
+  data: () => ({
       search: '',
       dialog: false,
       confirmDialog: false,
