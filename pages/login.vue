@@ -1,35 +1,37 @@
 <template>
-  <v-layout justify-center>
-    <v-flex>
+  <v-layout align-center justify-center>
+    <v-flex xs12 sm8 md4>
       <v-card class="elevation-24">
         <v-toolbar dark color="primary">
-          <v-toolbar-title>Login form</v-toolbar-title>
-          <v-spacer></v-spacer>
+          <v-toolbar-title>Inicio de sesion</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
-          <v-form v-if="!$store.state.authUser" @submit.prevent="login">
-            <p class="error" v-if="formError">{{ formError }}</p>
-            <v-text-field prepend-icon="person" name="username" label="Login" type="text" v-model="formUsername"></v-text-field>
-            <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" v-model="formPassword"></v-text-field>
-            <button type="submit">Login</button>
+          <v-alert :value="formError" type="error">
+            {{formError}}
+          </v-alert>
+          <v-alert :value="isSuccess" type="success">
+            Registro completo, por favor inicie sesion
+          </v-alert>
+          <v-form @submit.prevent="login">
+            <v-text-field prepend-icon="person" name="username" label="Usuario" type="text" v-model="formUsername"></v-text-field>
+            <v-text-field id="password" prepend-icon="lock" name="password" label="Contraseña" type="password" v-model="formPassword"></v-text-field>
+            <v-card-actions>
+              <v-btn v-if="!isSuccess" color="primary" to="/register">Registro</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn type="submit" color="primary">Login</v-btn>
+            </v-card-actions>
           </v-form>
-          <div v-else>
-            <pre>Usuario logeado</pre>
-          </div>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn type="submit" color="primary" to="/inspire">Login</v-btn>
-        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     layout (contex) {
-      return 'withoutNavigation'
+      return 'centered'
     },
     name: "login",
     data() {
@@ -39,7 +41,24 @@
         formPassword: ''
       }
     },
+    computed: {
+      ...mapGetters({
+        isSuccess: 'user/isSuccess'
+      })
+    },
+    watch: {
+      isSuccess() {
+        if (this.isSuccess) {
+          setTimeout(() => {
+            this.setSuccess()
+          }, 3000)
+        }
+      }
+    },
     methods: {
+      ...mapActions({
+        setSuccess: 'user/setSuccess'
+      }),
       async login() {
         try {
           await this.$store.dispatch('login', {
