@@ -74,9 +74,9 @@
             </v-btn>
           </td>
         </template>
-        <v-info slot="no-results" :value="true" color="error" icon="warning">
+        <v-alert slot="no-results" :value="true" type="error" icon="warning">
           Tu busqueda para "{{ search }}" no encontró resultados.
-        </v-info>
+        </v-alert>
         <template slot="pageText" slot-scope="props">
           Productos {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
@@ -92,7 +92,7 @@
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
-    middleware: 'auth',
+    // middleware: 'auth',
   data: () => ({
       search: '',
       dialog: false,

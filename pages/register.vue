@@ -55,7 +55,7 @@
           name: this.name,
           firstName: this.firstName,
           lastName: this.lastName,
-          tel: this.tel,
+          telephone: this.tel,
           username: this.username,
           password: this.password,
         })

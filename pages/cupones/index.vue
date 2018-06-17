@@ -5,7 +5,7 @@
         <v-container fill-height>
           <v-layout align-center>
             <v-flex>
-              <h3 class="display-3">Bienvenido {{user}}</h3>
+              <h3 class="display-3">Cupones</h3>
               <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
               <v-divider class="my-3"></v-divider>
               <div class="title mb-3">Check out our newest features!</div>
@@ -18,12 +18,12 @@
 </template>
 
 <script>
-export default {
-  // middleware: 'auth',
-  data: () => {
-    return {
-      user: 'user'
+  export default {
+    // middleware: 'auth',
+    data: () => {
+      return {
+        user: 'user'
+      }
     }
   }
-}
 </script>

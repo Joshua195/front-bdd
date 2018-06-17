@@ -19,7 +19,7 @@ export const mutations = {
 export const actions = {
   login({ commit }, { username, password }) {
     return new Promise(async (resolve, reject) => {
-      const response = await api.post('login', { username, password })
+      const response = await api.post('user/login', { username, password })
       if (response.ok) {
         commit('SET_USER', response.data)
         resolve()

@@ -42,7 +42,7 @@ export const actions = {
   },
   async fetchProducts({commit}) {
     commit('fetching')
-    const response = await api.get(`products`)
+    const response = await api.get(`product`)
     if (response.ok) {
       commit('success', response.data)
     } else {
@@ -50,7 +50,7 @@ export const actions = {
     }
   },
   async newProduct({ commit, dispatch }, payload) {
-    const response = await api.post(`products`, {product: {...payload}})
+    const response = await api.post(`product`, payload)
     if (response.ok) {
       dispatch('fetchProducts')
     } else {
@@ -58,8 +58,8 @@ export const actions = {
     }
   },
   async updateProduct({ commit, dispatch }, payload) {
-    const { name, price, description, id } = payload
-    const response = await api.patch(`products/${id}`, { name, price, description })
+    const { name, price, description, _id } = payload
+    const response = await api.patch(`product/${_id}`, { name, price, description })
     if (response.ok) {
       dispatch('fetchProducts')
     } else {
@@ -67,8 +67,8 @@ export const actions = {
     }
   },
   async deleteProduct({ commit, dispatch }, payload) {
-    const { id } = payload
-    const response = await api.delete(`products/${id}`)
+    const { _id } = payload
+    const response = await api.delete(`product/${_id}`)
     if (response.ok) {
       dispatch('fetchProducts')
     } else {
