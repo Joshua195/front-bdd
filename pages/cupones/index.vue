@@ -1,29 +1,67 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <v-jumbotron color="grey lighten-2">
-        <v-container fill-height>
-          <v-layout align-center>
-            <v-flex>
-              <h3 class="display-3">Cupones</h3>
-              <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
-              <v-divider class="my-3"></v-divider>
-              <div class="title mb-3">Check out our newest features!</div>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-jumbotron>
-    </v-flex>
+  <v-layout>
+    <v-card>
+      <v-container fluid grid-list-md transparent>
+        <v-layout row wrap>
+          <v-flex
+            v-for="coupon in coupons"
+            xs12
+            :key="coupon._id"
+          >
+            <v-card class="my-3" hover>
+              <v-card-media
+                class="white--text"
+                height="170px"
+                :src="imageUrl">
+                <v-container fill-height fluid>
+                  <v-layout>
+                    <v-flex xs12 align-end d-flex>
+                      <span class="headline">{{ coupon.key }}</span>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </v-card-media>
+              <v-card-text>
+                {{ coupon.description }}
+              </v-card-text>
+              <v-card-actions>
+                <v-btn icon class="red--text">
+                  {{ coupon.quantity }}
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn flat class="blue--text" disabled="">Read More</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card>
   </v-layout>
 </template>
 
 <script>
+  import { mapActions, mapGetters } from 'vuex'
+
   export default {
     // middleware: 'auth',
     data: () => {
       return {
-        user: 'user'
+        user: 'user',
+        imageUrl: '/coupons.jpg'
       }
+    },
+    computed: {
+      ...mapGetters({
+        coupons: 'coupons/coupons'
+      })
+    },
+    methods: {
+      ...mapActions({
+        fetchCouponsEnable: 'coupons/fetchCouponsEnable'
+      })
+    },
+    mounted() {
+      this.fetchCouponsEnable()
     }
   }
 </script>
