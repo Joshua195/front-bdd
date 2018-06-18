@@ -68,7 +68,7 @@
           this.formUsername = ''
           this.formPassword = ''
           this.formError = null
-          $nuxt.$router.push('/products')
+          $nuxt.$router.push('/')
         } catch (e) {
           this.formError = e.message
         }

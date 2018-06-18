@@ -135,7 +135,7 @@
   import moment from 'moment'
 
   export default {
-    // middleware: 'auth',
+    middleware: 'auth',
     data() {
       return {
         makeOrder: true,

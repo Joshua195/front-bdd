@@ -53,5 +53,16 @@ export const actions = {
   },
   setStatus({ commit }) {
     commit('setStatus', false)
+  },
+  updateUser({ commit }, payload) {
+    return new Promise(async resolve => {
+      const { _id, name, firstName, lastName, username, telephone } = payload
+      const response = await api.patch(`user/${_id}`, {name, firstName, lastName, username, telephone})
+      if (response.ok) {
+        resolve()
+      } else {
+        reject({...response.problem})
+      }
+    })
   }
 }

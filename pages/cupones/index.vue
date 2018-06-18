@@ -43,7 +43,7 @@
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
-    // middleware: 'auth',
+    middleware: 'auth',
     data: () => {
       return {
         user: 'user',
