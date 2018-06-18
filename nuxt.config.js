@@ -38,7 +38,8 @@ module.exports = {
   */
   plugins: [
     '@/plugins/vuetify',
-    '@/plugins/api'
+    '@/plugins/api',
+    '@/plugins/moment',
   ],
 
   /*
