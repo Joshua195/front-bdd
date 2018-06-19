@@ -68,7 +68,11 @@
           this.formUsername = ''
           this.formPassword = ''
           this.formError = null
-          $nuxt.$router.push('/')
+          if (this.$store.state.authUser.isAdmin) {
+            $nuxt.$router.push('/admin')
+          } else {
+            $nuxt.$router.push('/')
+          }
         } catch (e) {
           this.formError = e.message
         }

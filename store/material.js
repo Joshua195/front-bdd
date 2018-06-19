@@ -1,7 +1,7 @@
 import { api } from '../plugins/api'
 
 export const state = () => ({
-  payload: null,
+  material: null,
   fetching: false,
   error: null
 })
@@ -10,8 +10,8 @@ export const getters = {
   fetching: state => {
     return state.fetching
   },
-  coupons: state => {
-    return state.payload || []
+  material: state => {
+    return state.material || []
   }
 }
 
@@ -19,17 +19,17 @@ export const mutations = {
   fetching(state) {
     state.fetching = true
     state.error = null
-    state.payload = null
+    state.material = null
   },
   success(state, payload) {
-    state.payload = payload
+    state.material = payload
     state.fetching = false
     state.error = null
   },
   error(state, error) {
     state.fetching = false
     state.error = error
-    state.payload = null
+    state.material = null
   }
 }
 
@@ -40,47 +40,37 @@ export const actions = {
   error({ commit }, error = null) {
     commit('error', error)
   },
-  async fetchCoupons({commit}) {
+  async fetchMaterial({commit}) {
     commit('fetching')
-    const response = await api.get(`coupon`)
+    const response = await api.get(`material`)
     if (response.ok) {
       commit('success', response.data)
     } else {
       commit('error', response.problem)
     }
   },
-  async fetchCouponsEnable({commit}) {
-    commit('fetching')
-    const response = await api.get(`coupon/enable`)
+  async newMaterial({ commit, dispatch }, payload) {
+    const response = await api.post(`material`, payload)
     if (response.ok) {
-      commit('success', response.data)
+      dispatch('fetchMaterial')
     } else {
       commit('error', response.problem)
     }
   },
-  async newCoupon({ commit, dispatch }, payload) {
-    const response = await api.post(`coupon`, payload)
+  async updateMaterial({ commit, dispatch }, payload) {
+    const { name, price, unit, _id, idUser } = payload
+    const response = await api.patch(`material/${_id}`, { name, price, unit, idUser })
     if (response.ok) {
-      dispatch('fetchCoupons')
+      dispatch('fetchMaterial')
     } else {
       commit('error', response.problem)
     }
   },
-  // check this method
-  async updateCoupon({ commit, dispatch }, payload) {
-    const { key, quantity, description, _id, isEnable } = payload
-    const response = await api.patch(`coupon/${_id}`, { key, description, quantity, isEnable })
-    if (response.ok) {
-      dispatch('fetchCoupons')
-    } else {
-      commit('error', response.problem)
-    }
-  },
-  async deleteCoupon({ commit, dispatch }, payload) {
+  async deleteMaterial({ commit, dispatch }, payload) {
     const { _id } = payload
-    const response = await api.delete(`coupon/${_id}`)
+    const response = await api.delete(`material/${_id}`)
     if (response.ok) {
-      dispatch('fetchCoupons')
+      dispatch('fetchMaterial')
     } else {
       commit('error', response.problem)
     }

@@ -182,7 +182,7 @@
         fetchProducts: 'products/fetchProducts',
         newOrder: 'order/newOrder',
         setSuccessOrder: 'order/setSuccessOrder',
-        fetchOrders: 'order/fetchOrders'
+        fetchOrdersById: 'order/fetchOrdersById'
       }),
       showMakeOrder() {
         this.showOrders = false
@@ -231,7 +231,7 @@
     },
     mounted() {
       this.fetchProducts()
-      this.fetchOrders({ _id: this.$store.state.authUser._id})
+      this.fetchOrdersById({ _id: this.$store.state.authUser._id})
     },
     components: {
       DataTableItems

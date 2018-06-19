@@ -53,10 +53,19 @@ export const actions = {
   error({ commit }, error = null) {
     commit('error', error)
   },
-  async fetchOrders({commit}, payload) {
+  async fetchOrdersById({commit}, payload) {
     const { _id } = payload
     commit('fetching')
     const response = await api.get(`order/${_id}`)
+    if (response.ok) {
+      commit('success', response.data)
+    } else {
+      commit('error', response.problem)
+    }
+  },
+  async fetchOrders({commit}) {
+    commit('fetching')
+    const response = await api.get(`order`)
     if (response.ok) {
       commit('success', response.data)
     } else {
@@ -67,12 +76,30 @@ export const actions = {
     return new Promise( async (resolve) => {
       const response = await api.post(`order`, payload)
       if (response.ok) {
-        dispatch('fetchOrders', { _id: payload.idUser })
+        dispatch('fetchOrdersById', { _id: payload.idUser })
         resolve(true)
       } else {
         resolve(false)
       }
     })
+  },
+  async updateOrder({ commit, dispatch }, payload) {
+    const { name, price, description, _id } = payload
+    const response = await api.patch(`order/${_id}`, { name, price, description })
+    if (response.ok) {
+      dispatch('fetchProducts')
+    } else {
+      commit('error', response.problem)
+    }
+  },
+  async deleteOrder({ commit, dispatch }, payload) {
+    const { _id } = payload
+    const response = await api.delete(`order/${_id}`)
+    if (response.ok) {
+      dispatch('fetchProducts')
+    } else {
+      commit('error', response.problem)
+    }
   },
   setSuccessOrder({ commit  }, status) {
     commit('statusOrder', true)

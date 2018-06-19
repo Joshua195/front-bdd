@@ -24,7 +24,10 @@
         </v-list-tile>
       </v-list>
       <div @click="handlerClick()">
-        <v-list>
+        <v-list
+          exact
+          hover
+        >
           <v-list-tile>
             <v-list-tile-action>
               <v-icon v-html="`power_settings_new`"></v-icon>
@@ -67,10 +70,12 @@
         drawer: true,
         fixed: false,
         items: [
-          { icon: 'apps', title: 'Bienvenido', to: '/' },
-          { icon: 'list', title: 'Pedidos', to: '/pedidos' },
-          { icon: 'label', title: 'Cupones', to: '/cupones'},
-          { icon: 'person_pin', title: 'Mis Datos', to: '/usuario'}
+          { icon: 'apps', title: 'Bienvenido', to: '/admin' },
+          { icon: 'list', title: 'Productos', to: '/admin/productos' },
+          { icon: 'sort', title: 'Materia Prima', to: '/admin/materia'},
+          { icon: 'label_important', title: 'Cupones', to: '/admin/cupones'},
+          { icon: 'subject', title: 'Pedidos', to: '/admin/pedidos'},
+          { icon: 'contacts', title: 'Usuarios', to: '/admin/usuarios'},
         ],
         miniVariant: false,
         right: true,

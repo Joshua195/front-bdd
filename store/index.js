@@ -30,7 +30,6 @@ export const actions = {
   },
 
   async logout({ commit }) {
-    await api.post('logout')
     commit('SET_USER', null)
   }
 }
