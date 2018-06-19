@@ -1,6 +1,6 @@
 # front-project
 
-> My spectacular Nuxt.js project
+> Front-end for project DBD
 
 ## Build Setup
 
@@ -8,15 +8,12 @@
 # install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# serve with hot reload at localhost:3333
 $ yarn run dev
 
 # build for production and launch server
 $ yarn run build
 $ yarn start
-
-# generate static project
-$ yarn run generate
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
